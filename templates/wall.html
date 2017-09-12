@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wall</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/wall.css') }}">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/wall.js')}}"></script>
+    </head>
+    <body>
+    <header>
+    	<p>The Wall</p>
+    </header>
+    <div id='wrapper'>
+    	<div id='message'>
+    		<h3>Post a messsage </h3>
+    		<form class='' action='/message' method='post'>
+    			<input type='textarea' name='message' value=''>
+    			<input type='submit' name='' value='Post Message'>
+    		</form>
+    	</div>
+    	<div id="wall">
+    		{% for post in posts %}
+    		<div class='post'>
+    			<h2>{{ post['name'] }} - {{ post['time'] }}</h2>
+    			<h2>{{ post['messages_content'] }}</h2>
+    			<div class='all_comments'>
+    				{% for x in post: %}
+    					{% if x['id']==box[post['id']]['comment_id'] %}
+    					<p>{{ box[post['id']]['comments'] }}</p>
+    					{% endif %}
+    				{% endfor %}
+    			</div>
+	    		<p>Post a comment:</p>
+	    		<form class='' action='/comment' method='post'>
+	    			<input type='hidden' name='msgid' value="{{ post['id'] }}">
+	    			<input type='textarea' name='comment' value=''>
+	    			<input type='submit' name='' value='Post Comment'>
+	    		</form>
+    		</div>
+    		{% endfor %}
+    	</div>
+    	<form action='/logout' method='POST'>
+              <label for='logout'><input type='submit' value='Logout'></label>
+        </form>
+    </div>
+  	</body>
+</html>

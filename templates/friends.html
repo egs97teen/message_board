@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Friends</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/friends.css') }}">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/friends.js')}}"></script>
+    </head>
+    <body>
+        <div id='wrapper'>
+            <h1>Welcome {{ session['user']['first_name']+' '+session['user']['last_name'] }}</h1>
+            <h1>Friends:</h1>
+            <table id='table'>
+                <tr class='head'>
+                    <th class='name'>Name</th>
+                    <th class='age'>Email</th>
+                    <th class='since'>Friend Since</th>
+                    <th class='year'></th>
+                </tr>
+                <p>{{session}}</p>
+                <p>{{ all_friends }}</p>
+                {% for friend in all_friends: %}
+                    <td>{{ friend['first_name']+' '+friend['last_name'] }}</td>
+                    <td>{{ friend['email'] }}</td>
+                    <td>{{ friend['day'] }}</td>
+                    <td>{{ friend['year'] }}</td>
+                </tr>
+                {% endfor %}
+          </table>
+          <div id="error_box">
+              {%  with messages = get_flashed_messages()  %}
+                  {% if messages %}
+                      {% for message in messages %}
+                      <p>{{message}}</p>
+                      {% endfor %}
+                  {% endif %}
+              {% endwith %}
+          </div>
+          <h1>Add a Friend:</h1>
+          <form action='/add_friend' method='POST'>
+              <label for='email'>Email:<input type='text' name='email' id='email'></label>
+              <input type='submit' value='Submit'>
+          </form>
+          <form action='/logout' method='POST'>
+              <label for='logout'><input type='submit' value='Logout'></label>
+          </form>
+        </div>
+    </body>
+</html>

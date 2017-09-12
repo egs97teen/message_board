@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login/Register</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/login.js')}}"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="error_box">
+				{%  with messages = get_flashed_messages()  %}
+					{% if messages %}
+						{% for message in messages %}
+							<p>{{message}}</p>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+			</div>
+			<h1>Log In</h1>
+			<form action='/login' method='POST'>
+				<label for='email'>Email:<input type='text' name='email' id='email'></label>
+				<label for='password'>Password:<input type='password' name='password' id='password'></label>
+				<input type='submit' value='Login'>
+			</form>
+		</div>
+	</body>
+</html>

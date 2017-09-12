@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Registration</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registration.css') }}">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/registration.js')}}"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="error_box">
+				{%  with messages = get_flashed_messages()  %}
+					{% if messages %}
+						{% for message in messages %}
+							<p>{{message}}</p>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+			</div>
+			<div id="box">
+				<h1>Registration Form</h1>
+				<form action='/register' method='POST'>
+					<p>First Name:<input type='text' name='first_name'></p>
+					<p>Last Name:<input type='text' name='last_name'></p>
+					<p>Email:<input type='text' name='email'></p>
+					<p>Password:<input type='password' name='password'>
+					<p>Confirm Password:<input type='password' name='confirm'></p>
+					<input type='submit' class='submission' value='Submit'>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
